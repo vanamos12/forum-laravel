@@ -20,20 +20,22 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 divide-solid">
+                    @foreach($categories as $category)
                     <tr>
                         <x-table.data>
-                            <div>1</div>
+                            <div>{{ $category->id }}</div>
                         </x-table.data>
                         <x-table.data>
-                            <div>Category Name</div>
+                            <div>{{ $category->name }}</div>
                         </x-table.data>
                         <x-table.data>
-                            <div>category-name</div>
+                            <div>{{ $category->slug }}</div>
                         </x-table.data>
                         <x-table.data>
-                            <div class="text-center">2005-14-06</div>
+                            <div class="text-center">{{ $category->created_at }}</div>
                         </x-table.data>
-                    </tr>
+                    </tr>   
+                    @endforeach
                 </tbody>
 
             </table>
