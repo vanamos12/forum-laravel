@@ -9,7 +9,7 @@
 
     <section class="mx-6">
         <div class="p-8">
-            <x-form action="{{ route('admin.categories.update', $category) }}">
+            <x-form action="{{ route('admin.categories.update', $category) }}" method="PUT">
                 <div class="space-y-8">
                     {{-- Name --}}
                     <div>
