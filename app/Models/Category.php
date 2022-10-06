@@ -22,4 +22,9 @@ class Category extends Model
         return $this->hasMany(Thread::class);
     }
 
+    public function createdAt(): String {
+        //return $this->created_at->format('d-m-Y');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d/m/Y');
+    }
+
 }

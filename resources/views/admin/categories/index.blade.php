@@ -16,6 +16,7 @@
                         <x-table.head>Name</x-table.head>
                         <x-table.head>Slug</x-table.head>
                         <x-table.head class="text-center">Created At</x-table.head>
+                        <x-table.head class="text-center">Actions</x-table.head>
                     </tr>
                 </thead>
 
@@ -33,6 +34,18 @@
                         </x-table.data>
                         <x-table.data>
                             <div class="text-center">{{ $category->created_at }}</div>
+                        </x-table.data>
+                        <x-table.data>
+                            <div class="flex justify-center space-x-4">
+                                <a href="{{ route('admin.categories.edit', $category) }}" class="text-yellow-400">
+                                    <x-zondicon-edit-pencil class="w-5 h-5" />
+                                </a>
+                                <x-form action="{{ route('admin.categories.delete', $category) }}" method="DELETE">
+                                    <button type="submit" class="text-red-400">
+                                        <x-zondicon-trash class="w-5 h-5" />
+                                    </button>
+                                </x-form>
+                            </div>
                         </x-table.data>
                     </tr>   
                     @endforeach
