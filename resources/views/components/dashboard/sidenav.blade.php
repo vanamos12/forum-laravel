@@ -26,13 +26,34 @@
                 {{ __('Categories') }}
             </x-sidenav.title>
             <div>
-                <x-sidenav.link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('categories.index')">
+                <x-sidenav.link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
                     <x-zondicon-view-tile class="w-3 text-green-400" />
                     <span>{{ __('Index') }}</span>
                 </x-sidenav.link>
             </div>
             <div>
-                <x-sidenav.link href="{{ route('admin.categories.create') }}" :active="request()->routeIs('categories.create')">
+                <x-sidenav.link href="{{ route('admin.categories.create') }}" :active="request()->routeIs('admin.categories.create')">
+                    <x-zondicon-compose class="w-3 text-green-400" />
+                    <span>{{ __('Create') }}</span>
+                </x-sidenav.link>
+            </div>
+        </div>
+        @endif
+
+        @if(auth()->user()->isAdmin())
+        {{-- Tags --}}
+        <div>
+            <x-sidenav.title>
+                {{ __('Tags') }}
+            </x-sidenav.title>
+            <div>
+                <x-sidenav.link href="{{ route('admin.tags.index') }}" :active="request()->routeIs('admin.tags.index')">
+                    <x-zondicon-view-tile class="w-3 text-green-400" />
+                    <span>{{ __('Index') }}</span>
+                </x-sidenav.link>
+            </div>
+            <div>
+                <x-sidenav.link href="{{ route('admin.tags.create') }}" :active="request()->routeIs('admin.tags.create')">
                     <x-zondicon-compose class="w-3 text-green-400" />
                     <span>{{ __('Create') }}</span>
                 </x-sidenav.link>
