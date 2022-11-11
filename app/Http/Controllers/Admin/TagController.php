@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Authenticate;
+use Illuminate\Validation\Rule;
 
 class TagController extends Controller
 {
@@ -92,8 +93,12 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         //
-        $this->validate($request, [
+        /*$this->validate($request, [
             'name' => ['required', 'unique:tags']
+        ]);*/
+
+        $this->validate($request, [
+            'name' => ['required', Rule::unique('tags')->ignore($tag)]
         ]);
 
         $tag->update([
