@@ -41,6 +41,8 @@
                 </header>
                 @endif
 
+                <x-alerts.main />
+
                 <!-- Page Content -->
                 <main class="m-6 bg-white shadow">
                     <div class="py-6">
