@@ -15,8 +15,9 @@ class Thread extends Model
     use HasAuthor;
 
     protected $fillable = [
-        'subject',
+        'title',
         'body',
+        'slug',
         'category_id',
         'author_id',
     ];
