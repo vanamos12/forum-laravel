@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pages\HomeController;
+use App\Http\Controllers\Pages\ThreadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,14 @@ use App\Http\Controllers\Pages\HomeController;
 require 'admin.php';
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'threads', 'as' => 'threads.'], function(){
+    /* Name: Threads
+     * Url: /threads/*
+     * Route: threads.*
+    */
+    Route::get('/', [ThreadController::class, 'index'])->name('index');
+});
 
 Route::get('/category/discussion/topic', [PageController::class, 'single'])->name('single');
 

@@ -24,7 +24,7 @@ class Thread extends Model
 
     protected $with = [
         'authorRelation',
-        'categories',
+        'category',
         'tagsRelation'
     ];
 
