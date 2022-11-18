@@ -70,6 +70,10 @@ class User extends Authenticatable
         return (int) $this->type;
     }
 
+    public function name():string{
+        return (string) $this->name;
+    }
+
     public function isModerator():bool {
         return $this->type() === self::MODERATOR;
     }
