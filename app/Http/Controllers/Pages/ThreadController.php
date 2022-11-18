@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Pages;
 
-use App\Http\Controllers\Controller;
 use App\Models\Thread;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ThreadController extends Controller
 {
@@ -48,9 +49,10 @@ class ThreadController extends Controller
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show(Category $category, Thread $thread)
     {
         //
+        return view('pages.threads.show', compact('thread', 'category'));
     }
 
     /**

@@ -47,6 +47,10 @@ class Thread extends Model
         return $this->body;
     }
 
+    public function slug():string{
+        return $this->slug;
+    }
+
     public function diffForHumansCreatedAt():string{
         return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->diffForHumans();
     }
