@@ -28,6 +28,10 @@ class Category extends Model
         return $this->name;
     }
 
+    public function id():int{
+        return $this->id;
+    }
+
     public function slug():string{
         return $this->slug;
     }

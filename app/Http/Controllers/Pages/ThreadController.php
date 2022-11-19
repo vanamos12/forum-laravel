@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Pages;
 
+use App\Models\Tag;
 use App\Models\Thread;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 class ThreadController extends Controller
 {
+    public function __construct(){
+        return $this->middleware([Authenticate::class, EnsureEmailIsVerified::class])->except(['index', 'show']);
+
+        //return $this->middleware(['auth', 'verified'])->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +39,10 @@ class ThreadController extends Controller
     public function create()
     {
         //
+        return view('pages.threads.create', [
+            'categories' => Category::all(),
+            'tags' => Tag::all()
+        ]);
     }
 
     /**
