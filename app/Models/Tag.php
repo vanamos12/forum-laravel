@@ -20,6 +20,18 @@ class Tag extends Model
         'slug'
     ];
 
+    public function name():string{
+        return $this->name;
+    }
+
+    public function id():int{
+        return $this->id;
+    }
+
+    public function slug():string{
+        return $this->slug;
+    }
+
     public function threads():MorphToMany{
         return $this->morphedByMany(Thread::class, 'taggable');
     }
