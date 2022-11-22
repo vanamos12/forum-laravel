@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\ThreadStoreRequest;
+use App\Jobs\CreateThread;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 class ThreadController extends Controller
@@ -68,6 +69,8 @@ class ThreadController extends Controller
         $thread->save();
         //$thread->tags()->sync($request->tags);
         $thread->syncTags($request->tags);*/
+
+        $this->dispatchSync(CreateThread::fromRequest($request));
 
         return redirect()->route('threads.index')->with('success', 'Thread created');
     }
