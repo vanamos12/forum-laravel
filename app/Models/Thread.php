@@ -5,8 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Traits\HasTags;
 use App\Traits\HasAuthor;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
-use PhpParser\Node\Expr\Cast\String_;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -58,6 +58,12 @@ class Thread extends Model
     public function delete(){
         $this->removeTags();
         parent::delete();
+    }
+
+    public function scopeForTag(Builder $query, string $tag):Builder{
+        return $query->whereHas('tagsRelation', function($query) use($tag){
+            $query->where('tags.slug', $tag);
+        });
     }
 
 }

@@ -1,6 +1,6 @@
 <article class="p-5 bg-white shadow">
 
-    <div class="grid grid-cols-8 gap-2">
+    <div class="grid grid-cols-8 gap-2 relative">
 
         {{-- Avatar --}}
         <div class="col-span-1">
@@ -47,11 +47,13 @@
         </div>
 
         {{-- Tags --}}
-        <div class="col-span-1 space-y-3">
-            <div>
-                <a href="" class="p-1 text-sm text-white bg-indigo-400 rounded">
-                    Category One
-                </a>
+        <div class="absolute right-2">
+            <div class="flex space-x-2">
+                @foreach($thread->tags() as $tag)
+                    <a href="{{ route('threads.tags.index', $tag->slug()) }}" class="p-1 text-xs text-white bg-green-400 rounded">
+                        {{ $tag->name() }}
+                    </a>
+                @endforeach
             </div>
         </div>
 
