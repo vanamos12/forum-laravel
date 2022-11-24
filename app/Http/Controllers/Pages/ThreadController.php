@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\ThreadStoreRequest;
 use App\Jobs\CreateThread;
+use App\Policies\ThreadPolicy;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 class ThreadController extends Controller
@@ -96,7 +97,18 @@ class ThreadController extends Controller
     public function edit(Thread $thread)
     {
         //
-        return view('pages.threads.edit', compact('thread'));
+        $this->authorize(ThreadPolicy::UPDATE, $thread);
+
+        $oldTags = $thread->tags()->pluck('id')->toArray();
+        $selectedCategory = $thread->category;
+
+        return view('pages.threads.edit', [
+            'thread'         => $thread,
+            'tags'           => Tag::all(),
+            'oldTags'        => $oldTags,
+            'categories'     => Category::all(),
+            'selectedCategory' => $selectedCategory
+        ]);
     }
 
     /**
