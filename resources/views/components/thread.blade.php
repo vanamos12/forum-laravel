@@ -57,12 +57,22 @@
             </div>
         </div>
 
-        @can(App\Policies\ThreadPolicy::UPDATE, $thread)
-            {{-- Edit Button --}}
-            <div class="absolute right-2 bottom-1">
-                <x-links.secondary href="{{ route('threads.edit', $thread->slug()) }}">Edit</x-links.secondary>
+        {{-- Edit Button --}}
+        <div class="absolute right-2 bottom-1">
+            <div class="flex space-x-2">
+                @can(App\Policies\ThreadPolicy::UPDATE, $thread)
+                
+                    <x-links.secondary href="{{ route('threads.edit', $thread->slug()) }}">Edit</x-links.secondary>
+                
+                @endcan
+
+                @can(App\Policies\ThreadPolicy::DELETE, $thread)
+                
+                    <livewire:thread.delete :thread="$thread" :key="$thread->id()"/>
+                
+                @endcan
             </div>
-        @endcan
+        </div>
         
     </div>
 </article>
