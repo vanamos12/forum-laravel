@@ -16,7 +16,7 @@
 
                     {{-- Create --}}
                     <div class="col-span-7 space-y-6">
-                        <x-form action="{{ route('threads.store') }}">
+                        <x-form action="{{ route('threads.update', $thread->slug()) }}">
                             <div class="space-y-8">
                                 {{-- Title --}}
                                 <div>
