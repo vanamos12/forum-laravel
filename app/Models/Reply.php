@@ -42,6 +42,6 @@ class Reply extends Model
     }
 
     public function replyAbleRelation():MorphTo{
-        return $this->morphTo('replyAbleRelation', 'replyAble_type', 'replyAble_id');
+        return $this->morphTo('replyAbleRelation', 'replyable_type', 'replyable_id');
     }
 }
