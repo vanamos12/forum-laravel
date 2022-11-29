@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pages\TagController as PagesTagController;
 use App\Http\Controllers\Pages\HomeController;
+use App\Http\Controllers\Pages\ReplyController;
 use App\Http\Controllers\Pages\ThreadController;
 
 /*
@@ -37,6 +38,17 @@ Route::group(['prefix' => 'threads', 'as' => 'threads.'], function(){
         Route::get('/{tag:slug}', [PagesTagController::class, 'index'])->name('index');
     });
     //Route::get('tags/{tag:slug}', [TagController::class, 'index'])->name('tags.index');
+});
+
+Route::group(['prefix' => 'replies', 'as' => 'replies.'], function(){
+    /* Name: Replies
+     * Url: /replies/*
+     * Route: replies.*
+    */
+    Route::post('/', [ReplyController::class, 'store'])->name('store');
+    Route::get('/{reply}/edit', [ReplyController::class, 'edit'])->name('edit');
+    Route::put('/{reply}', [ReplyController::class, 'update'])->name('update');
+    Route::delete('/{reply}', [ReplyController::class, 'destroy'])->name('delete');
 });
 
 //Route::get('/category/discussion/topic', [PageController::class, 'single'])->name('single');
