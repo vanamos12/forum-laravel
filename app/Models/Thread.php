@@ -19,6 +19,10 @@ class Thread extends Model
     use HasAuthor;
     use HasReplies;
 
+    const TABLE = 'threads';
+
+    protected $table = self::TABLE;
+
     protected $fillable = [
         'title',
         'body',

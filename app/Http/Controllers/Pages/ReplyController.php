@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Pages;
 
+use App\Models\Reply;
+use App\Jobs\CreateReply;
+use Illuminate\Http\Request;
+use App\Policies\ReplyPolicy;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Authenticate;
+use App\Http\Requests\CreateReplyRequest;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
-use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
@@ -15,7 +19,10 @@ class ReplyController extends Controller
         return $this->middleware([Authenticate::class, EnsureEmailIsVerified::class]);
     }
 
-    public function store(Request $request){
-        return $request;
+    public function store(CreateReplyRequest $request){
+        $this->authorize(ReplyPolicy::CREATE, Reply::class);
+
+        $this->dispatchSync(CreateReply::fromRequest($request));
+        
     }
 }
