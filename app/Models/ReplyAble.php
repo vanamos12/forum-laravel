@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 interface ReplyAble
 {
-    public function subject(): string;
+    public function title(): string;
 
     /**
      * @return \App\Models\Reply[]

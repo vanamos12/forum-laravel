@@ -46,7 +46,7 @@ class CreateReplyRequest extends FormRequest
     }
 
     public function author(): User{
-        return $this->usser();
+        return $this->user();
     }
 
     public function body(): string{

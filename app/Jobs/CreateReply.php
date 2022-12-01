@@ -2,13 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Http\Requests\CreateReplyRequest;
-use App\Models\Reply;
 use App\Models\User;
+use App\Models\Reply;
 use App\Models\ReplyAble;
 use Illuminate\Bus\Queueable;
+use Mews\Purifier\Facades\Purifier;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Http\Requests\CreateReplyRequest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -49,8 +50,10 @@ class CreateReply implements ShouldQueue
     public function handle():Reply
     {
         //
-        $reply = new Reply(['body' => $this->body]);
-        $reply->isAuthoredBy($this->author);
+        $reply = new Reply([
+            'body' => Purifier::clean($this->body)
+        ]);
+        $reply->authoredBy($this->author);
         $reply->to($this->replyAble);
         $reply->save();
 

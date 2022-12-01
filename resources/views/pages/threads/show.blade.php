@@ -4,6 +4,7 @@
         <x-partials.sidenav />
 
         <section class="flex flex-col col-span-3 gap-y-4">
+            <x-alerts.main />
             <small class="text-sm text-gray-400">Threads>{{ $category->name() }}>{{ $thread->title() }}</small>
 
             <article class="p-5 bg-white shadow">
@@ -52,16 +53,22 @@
             </article>
 
             {{-- Replies --}}
-
-            <div class="p-5 space-y-4 text-gray-500 bg-white border-l border-blue-300 shadow">
+            <div class="mt-6 space-y-5">
+            <h2 class="text-sm font-bold uppercase">Replies</h2>
+            @foreach($thread->replies() as $reply)
+            <div class="p-5 space-y-4 text-gray-500 bg-white border-l-4 border-blue-300 shadow">
                 <div class="grid grid-cols-8">
-                    <button class="flex items-center text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
-                        {{-- <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" /> --}}
+                    {{-- Avatar --}}
+                    <div class="col-span-1">
+                        <x-user.avatar :user="$reply->author()"/>
+                    </div>
+                    {{--<button class="flex items-center text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                         <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" /> 
                         <img class="object-cover w-16 h-16 rounded" src="{{ asset('img/avatars/person4.jpg') }}" alt="Person One" />
-                    </button>
-                    <div class="col-span-7 space-y-4">
+                    </button>--}}
+                    <div class="col-span-6 space-y-4">
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil tenetur alias maiores, sequi magni nam incidunt a beatae veritatis animi suscipit omnis ipsam, accusantium vitae impedit vero molestiae nostrum illo perspiciatis rerum? Recusandae dicta cumque nulla officiis explicabo aliquid nobis? Consectetur dicta fugiat quas amet corporis facere possimus asperiores harum?
+                            {!! $reply->body() !!}
                         </p>
                         <div class="flex justify-between">
                             {{-- Likes --}}
@@ -75,12 +82,15 @@
                             {{-- Date Posted --}}
                             <div class="flex items-center text-xs text-gray-500">
                                 <x-heroicon-o-clock class="w-4 h-4 mr-1" />
-                                Replied: 2 mintues ago
+                                Replied: {{ $reply->diffForHumansCreatedAt()}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+            </div>
+
             @auth
             <div class="p-5 space-y-4 bg-white shadow">
                 <h2 class="text-gray-500">Post a reply</h2>
@@ -88,6 +98,11 @@
                     <div>
                         <x-trix name="body" styling="bg-gray-100 shadow-inner h-40" />
                         <x-form.error for="body" />
+
+                        <input type="hidden" name="replyable_id" value="{{ $thread->id() }}">
+                        <x-form.error for="replyable_id" />
+                        <input type="hidden" name="replyable_type" value="threads">
+                        <x-form.error for="replyable_type" />
                     </div>
                     <div class="grid mt-4">
                         <x-buttons.primary class="justify-self-end">

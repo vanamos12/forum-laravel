@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Traits\HasTags;
 use App\Traits\HasAuthor;
 use App\Traits\HasReplies;
+use App\Traits\HasTimestamps;
+use Illuminate\Cache\HasCacheLock;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Thread extends Model
+class Thread extends Model implements ReplyAble
 {
     use HasFactory;
     use HasTags;
     use HasAuthor;
     use HasReplies;
+    use HasTimestamps;
 
     const TABLE = 'threads';
 
@@ -45,6 +47,15 @@ class Thread extends Model
         return Str::limit(strip_tags($this->body()), $limit);
     }
 
+    public function replyAbleSubject(): string
+    {
+        return $this->title();
+    }
+
+    public function id(){
+        return $this->id;
+    }
+
     public function title():String{
         return $this->title;
     }
@@ -57,9 +68,7 @@ class Thread extends Model
         return $this->slug;
     }
 
-    public function diffForHumansCreatedAt():string{
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->diffForHumans();
-    }
+    
 
     public function delete(){
         $this->removeTags();

@@ -16,6 +16,7 @@ class Reply extends Model
     use HasAuthor;
     use HasTimestamps;
     use ModelHelpers;
+    use HasTimestamps;
 
     protected $table = 'replies';
 

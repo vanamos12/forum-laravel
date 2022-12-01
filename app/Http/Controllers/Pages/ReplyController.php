@@ -24,5 +24,6 @@ class ReplyController extends Controller
 
         $this->dispatchSync(CreateReply::fromRequest($request));
         
+        return back()->with('success', 'Reply Created');
     }
 }
