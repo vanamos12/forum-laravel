@@ -66,7 +66,8 @@
                 <h2 class="text-gray-500">Post a reply</h2>
                 <x-form action="{{ route('replies.store') }}">
                     <div>
-                        <x-trix name="body" styling="bg-gray-100 shadow-inner h-40" />
+                        {{-- <x-trix name="body" styling="bg-gray-100 shadow-inner h-40" /> --}}
+                        <input type="text" name="body" class="w-full bg-gray-200 border-none shadow-inner focus:ring-blue-400" />
                         <x-form.error for="body" />
 
                         <input type="hidden" name="replyable_id" value="{{ $thread->id() }}">

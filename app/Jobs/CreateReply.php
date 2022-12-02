@@ -51,7 +51,8 @@ class CreateReply implements ShouldQueue
     {
         //
         $reply = new Reply([
-            'body' => Purifier::clean($this->body)
+            //'body' => Purifier::clean($this->body)
+            'body' => $this->body
         ]);
         $reply->authoredBy($this->author);
         $reply->to($this->replyAble);

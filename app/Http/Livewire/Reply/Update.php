@@ -7,15 +7,30 @@ use Livewire\Component;
 
 class Update extends Component
 {
-    public $oldReply;
+    public $replyId;
+    public $replyOrigBody;
+    public $replyNewBody;
 
     public function mount(Reply $reply)
     {
-        $this->oldReply = $reply->body();
+        $this->replyId = $reply->id();
+        $this->replyOrigBody = $reply->body();
+
+        $this->initialize($reply);
     }
 
     public function updateReply(){
-        dd('Updating reply');
+        $reply = Reply::findOrFail($this->replyId);
+        $reply->body = $this->replyNewBody;
+        $reply->save();
+
+        session()->flash('success', 'Reply Updated!');
+        $this->initialize($reply);
+    }
+
+    public function initialize(Reply $reply){
+        $this->replyOrigBody = $reply->body();
+        $this->replyNewBody = $this->replyOrigBody;
     }
 
     public function render()
