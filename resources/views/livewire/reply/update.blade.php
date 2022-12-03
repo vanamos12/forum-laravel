@@ -10,9 +10,12 @@
         {{-- Success is as dangerous as failure. --}}
         <div x-show="!editReply" class="relative">
             {{ $replyOrigBody }}
-            <x-links.secondary x-on:click="editReply = true; $nextTick(() => {focus()});" class="absolute cursor-pointer top-2 right-2">
-                {{ __('Edit') }}
-            </x-links.secondary>
+            @can(App\Policies\ReplyPolicy::UPDATE, App\Models\Reply::find($replyId))
+                <x-links.secondary x-on:click="editReply = true; $nextTick(() => {focus()});" class="absolute cursor-pointer top-2 right-2">
+                    {{ __('Edit') }}
+                </x-links.secondary>
+            @endcan
+            
         </div>
 
         <div x-show="editReply">   

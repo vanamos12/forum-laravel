@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Reply;
 
 use App\Models\Reply;
+use App\Policies\ReplyPolicy;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class Update extends Component
 {
+    use AuthorizesRequests;
     public $replyId;
     public $replyOrigBody;
     public $replyNewBody;
@@ -21,6 +24,7 @@ class Update extends Component
 
     public function updateReply(){
         $reply = Reply::findOrFail($this->replyId);
+        $this->authorize(ReplyPolicy::UPDATE, $reply);
         $reply->body = $this->replyNewBody;
         $reply->save();
 
