@@ -737,6 +737,10 @@ select {
   }
 }
 
+[x-cloak] {
+  display: none;
+}
+
 .container {
   width: 100%;
 }
