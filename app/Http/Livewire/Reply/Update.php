@@ -10,14 +10,19 @@ use Livewire\Component;
 class Update extends Component
 {
     use AuthorizesRequests;
+
     public $replyId;
     public $replyOrigBody;
     public $replyNewBody;
+    public $author;
+    public $dateDiffCreatedAt;
 
     public function mount(Reply $reply)
     {
         $this->replyId = $reply->id();
         $this->replyOrigBody = $reply->body();
+        $this->author = $reply->author();
+        $this->dateDiffCreatedAt = $reply->diffForHumansCreatedAt();
 
         $this->initialize($reply);
     }
