@@ -12,7 +12,7 @@ class ReplyPolicy
 
     const CREATE = 'create';
     const UPDATE = 'update';
-    const DLEETE = 'delete';
+    const DELETE = 'delete';
 
     public function create(User $user):bool{
         return $user->hasVerifiedEmail();

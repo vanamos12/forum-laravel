@@ -17,6 +17,8 @@ class Update extends Component
     public $author;
     public $dateDiffCreatedAt;
 
+    protected $listeners = ['deleteReply' => 'deleteReply'];
+
     public function mount(Reply $reply)
     {
         $this->replyId = $reply->id();
@@ -40,6 +42,11 @@ class Update extends Component
     public function initialize(Reply $reply){
         $this->replyOrigBody = $reply->body();
         $this->replyNewBody = $this->replyOrigBody;
+    }
+
+    public function deleteReply($page){
+        session()->flash('success', 'Reply Deleted!');
+        return  redirect()->to($page);
     }
 
     public function render()
