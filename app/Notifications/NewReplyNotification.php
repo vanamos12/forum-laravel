@@ -2,12 +2,13 @@
 
 namespace App\Notifications;
 
-use App\Models\Reply;
 use App\Models\User;
+use App\Models\Reply;
+use App\Mail\NewReplyEmail;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class NewReplyNotification extends Notification
 {
