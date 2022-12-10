@@ -25,7 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
     const MODERATOR = 2;
     const ADMIN = 3;
 
-    protected $table = 'users';
+    const TABLE = 'users';
+    protected $table = self::TABLE;
     /**
      * The attributes that are mass assignable.
      *

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ReplyWasCreated;
+use App\Models\Thread;
 use App\Notifications\NewReplyNotification;
 
 class sendNewReplyNotification

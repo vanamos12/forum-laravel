@@ -18,7 +18,8 @@ class Reply extends Model
     use ModelHelpers;
     use HasTimestamps;
 
-    protected $table = 'replies';
+    const TABLE = 'replies';
+    protected $table = self::TABLE;
 
     protected $fillable = ['body'];
 
