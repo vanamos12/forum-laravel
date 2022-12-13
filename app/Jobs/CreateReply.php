@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\ReplyWasCreated;
 use App\Models\User;
 use App\Models\Reply;
 use App\Models\ReplyAble;
@@ -58,6 +59,8 @@ class CreateReply implements ShouldQueue
         $reply->to($this->replyAble);
         $reply->save();
 
+        event(new ReplyWasCreated($reply));
+        
         return $reply;
     }
 }

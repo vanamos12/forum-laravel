@@ -5,9 +5,11 @@
 {{ $reply->excerpt(250) }}    
 @endcomponent
 
-@component('mail::button', ['url' => route('threads.show',
-        $reply->replyAble()->category->slug(),
-        $reply->replyAble()->slug())])
+@component('mail::button', [
+        'url' => route('threads.show',[ 
+                'category' => $reply->replyAble()->category->slug(),
+                'thread' => $reply->replyAble()->slug()
+        ])])
 View Thread    
 @endcomponent
 

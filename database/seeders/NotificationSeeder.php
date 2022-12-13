@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Reply;
-use App\Notifications\NewReplyNotification;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use App\Notifications\NewReplyNotification;
 
 class NotificationSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class NotificationSeeder extends Seeder
         //
         Reply::all()->each(function(Reply $reply){
             $reply->replyAble()->author()->notifications()->create([
+               'id' => Str::uuid()->toString(),
                'type' => NewReplyNotification::class,
                'data' => [
                     'type' => 'new_reply',
