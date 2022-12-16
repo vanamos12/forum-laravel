@@ -17,6 +17,12 @@
                     <span>{{ __('Users') }}</span>
                 </x-sidenav.link>
             </div>
+            <div>
+                <x-sidenav.link href="{{ route('dashboard.notifications.index') }}" :active="request()->routeIs('dashboard.notifications.index')">
+                    <x-zondicon-notifications class="w-3 text-green-400" />
+                    <span>{{ __('Notifications') }}</span>
+                </x-sidenav.link>
+            </div>
         </div>
 
         @if(auth()->user()->isAdmin())

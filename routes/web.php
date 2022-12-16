@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\Pages\TagController as PagesTagController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\ReplyController;
 use App\Http\Controllers\Pages\ThreadController;
+use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Pages\TagController as PagesTagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,16 @@ Route::group(['prefix' => 'replies', 'as' => 'replies.'], function(){
     Route::get('/{reply}/edit', [ReplyController::class, 'edit'])->name('edit');
     Route::put('/{reply}', [ReplyController::class, 'update'])->name('update');
     Route::delete('/{reply}', [ReplyController::class, 'destroy'])->name('delete');
+});
+
+Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function(){
+    /* Name: Notifications
+     * Url: /dasboard/notifications*
+     * Route: dashboard.notifications*
+    */
+    Route::group(['prefix' => 'notifications', 'as' => 'notifications.'], function(){
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+    });
 });
 
 //Route::get('/category/discussion/topic', [PageController::class, 'single'])->name('single');
