@@ -10,6 +10,14 @@ class Count extends Component
 {
     public $count;
 
+    protected $listeners = [
+        'markedAsRead' => 'updateCount',
+    ];
+
+    public function updateCount(int $count) : int{
+        return $count;
+    }
+
     public function render():View
     {
         $this->count = Auth::user()->unreadNotifications()->count();
