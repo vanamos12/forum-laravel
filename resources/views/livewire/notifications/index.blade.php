@@ -16,8 +16,11 @@
                         <x-table.data>
                             <div>
                                 A new reply was add to
-                                <a href="#">
-                                {{ $notification->data['replyable_subject']}}
+                                <a href="{{ route('replies.replyAble', [
+                                    $notification->data['replyable_id'],
+                                    $notification->data['replyable_type']
+                                ]) }}" class="ml-2 font-bold text-blue-500">
+                                {{ $notification->data ['replyable_subject']}}
                                 </a>
                             </div>
                         </x-table.data>

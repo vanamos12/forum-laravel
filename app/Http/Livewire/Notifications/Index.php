@@ -30,7 +30,7 @@ class Index extends Component
     public function markAsRead(string $notificationId){
         $this->notificationId = $notificationId;
 
-        //$this->authorize(NotificationPolicy::MARK_AS_READ, $this->notificationId);
+        $this->authorize(NotificationPolicy::MARK_AS_READ, $this->notification);
 
         $this->notification->markAsRead();
 

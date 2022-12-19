@@ -50,6 +50,7 @@ Route::group(['prefix' => 'replies', 'as' => 'replies.'], function(){
     Route::get('/{reply}/edit', [ReplyController::class, 'edit'])->name('edit');
     Route::put('/{reply}', [ReplyController::class, 'update'])->name('update');
     Route::delete('/{reply}', [ReplyController::class, 'destroy'])->name('delete');
+    Route::get('reply/{id}/{type}', [ReplyController::class, 'redirect'])->name('replyAble');
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function(){

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Policies\ReplyPolicy;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Authenticate;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CreateReplyRequest;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
@@ -25,5 +26,13 @@ class ReplyController extends Controller
         $this->dispatchSync(CreateReply::fromRequest($request));
         
         return back()->with('success', 'Reply Created');
+    }
+
+    public function redirect($id, $type){
+        $reply = Reply::where('replyable_id', $id)
+                    ->where('replyable_type', $type)
+                    ->firstOrFail();
+        return Redirect::route('threads.show', [$reply->replyAble()->category->slug(),
+            $reply->replyAble()->slug()]);
     }
 }

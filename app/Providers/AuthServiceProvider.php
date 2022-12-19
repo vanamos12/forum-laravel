@@ -2,16 +2,17 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Models\Reply;
 use App\Models\Thread;
-use App\Models\User;
-use App\Policies\NotificationPolicy;
+use App\Policies\userPolicy;
 use App\Policies\ReplyPolicy;
 use App\Policies\ThreadPolicy;
-use App\Policies\userPolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Notifications\Notification;
+use App\Policies\NotificationPolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => userPolicy::class,
         Thread::class => ThreadPolicy::class,
         Reply::class => ReplyPolicy::class,
-        Notification::class => NotificationPolicy::class
+        DatabaseNotification::class => NotificationPolicy::class
 
     ];
 
