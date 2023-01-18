@@ -3,20 +3,22 @@
 namespace App\Models;
 
 use App\Traits\HasTags;
+use App\Traits\HasLikes;
 use App\Traits\HasAuthor;
 use App\Traits\HasReplies;
+use Illuminate\Support\Str;
 use App\Traits\HasTimestamps;
 use Illuminate\Cache\HasCacheLock;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Thread extends Model implements ReplyAble
-{
-    use HasFactory;
+{  
     use HasTags;
+    use HasLikes;
+    use HasFactory;
     use HasAuthor;
     use HasReplies;
     use HasTimestamps;
@@ -36,7 +38,8 @@ class Thread extends Model implements ReplyAble
     protected $with = [
         'authorRelation',
         'category',
-        'tagsRelation'
+        'tagsRelation',
+        'likesRealtion'
     ];
 
     public function category():BelongsTo{

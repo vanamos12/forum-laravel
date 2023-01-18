@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasAuthor;
+use App\Traits\HasLikes;
 use Illuminate\Support\Str;
 use App\Traits\ModelHelpers;
 use App\Traits\HasTimestamps;
@@ -12,16 +13,18 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Reply extends Model
 {
-    use HasFactory;
+    use HasLikes;
     use HasAuthor;
+    use HasFactory;
     use HasTimestamps;
     use ModelHelpers;
-    use HasTimestamps;
 
     const TABLE = 'replies';
     protected $table = self::TABLE;
 
     protected $fillable = ['body'];
+
+    protected $with = ['likesRelation'];
 
     public function id(): int{
         return $this->id;
