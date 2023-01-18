@@ -39,7 +39,7 @@ class Thread extends Model implements ReplyAble
         'authorRelation',
         'category',
         'tagsRelation',
-        'likesRealtion'
+        'likesRelation'
     ];
 
     public function category():BelongsTo{

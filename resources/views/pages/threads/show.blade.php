@@ -29,10 +29,7 @@
 
                             {{-- Likes --}}
                             <div class="flex space-x-5 text-gray-500">
-                                <a href="" class="flex items-center space-x-2">
-                                    <x-heroicon-o-heart class="w-5 h-5 text-red-300" />
-                                    <span class="text-xs font-bold">148</span>
-                                </a>
+                                <livewire:like-thread :thread="$thread">
                             </div>
 
                             {{-- Date Posted --}}
