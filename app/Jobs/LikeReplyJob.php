@@ -31,7 +31,7 @@ class LikeReplyJob
     public function handle()
     {
         //
-        if ($this->reply->isLikeBy($this->user)){
+        if ($this->reply->isLikedBy($this->user)){
             throw CannotLikeItem::alreadyLiked('reply');
         }
 
