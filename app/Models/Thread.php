@@ -8,13 +8,15 @@ use App\Traits\HasAuthor;
 use App\Traits\HasReplies;
 use Illuminate\Support\Str;
 use App\Traits\HasTimestamps;
+use App\Models\SubscriptionAble;
+use App\Traits\HasSubscriptions;
 use Illuminate\Cache\HasCacheLock;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Thread extends Model implements ReplyAble
+class Thread extends Model implements ReplyAble, SubscriptionAble
 {  
     use HasTags;
     use HasLikes;
@@ -22,6 +24,7 @@ class Thread extends Model implements ReplyAble
     use HasAuthor;
     use HasReplies;
     use HasTimestamps;
+    use HasSubscriptions;
 
     const TABLE = 'threads';
 

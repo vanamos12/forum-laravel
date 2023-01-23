@@ -139,4 +139,12 @@ class ThreadController extends Controller
     {
         //
     }
+
+    public function subscribe(){
+
+    }
+
+    public function unsubscribe(){
+        
+    }
 }
