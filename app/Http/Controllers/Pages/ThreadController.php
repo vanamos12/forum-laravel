@@ -15,6 +15,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
 use App\Http\Requests\ThreadStoreRequest;
+use App\Jobs\SubscribeToSubscriptionAble;
+use App\Jobs\UnsubscribeFromSubscriptionAble;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 class ThreadController extends Controller
@@ -140,11 +142,21 @@ class ThreadController extends Controller
         //
     }
 
-    public function subscribe(){
+    public function subscribe(Request $request, Thread $thread){
+        $this->authorize(ThreadPolicy::SUBSCRIBE, $thread);
 
+        $this->dispatchSync(new SubscribeToSubscriptionAble($request->user(), $thread));
+
+        return redirect()->route('thread.show', [$thread->category()->slug(), $thread->slug()])
+                        ->with('success', 'you have been subscribed to this thread.');
     }
 
-    public function unsubscribe(){
-        
+    public function unsubscribe(Request $request, Thread $thread){
+        $this->authorize(ThreadPolicy::UNSUBSCRIBE, $thread);
+
+        $this->dispatchSync(new UnsubscribeFromSubscriptionAble($request->user(), $thread));
+
+        return redirect()->route('thread.show', [$thread->category()->slug(), $thread->slug()])
+                        ->with('success', 'you have been unsubscribed from this thread.');    
     }
 }
