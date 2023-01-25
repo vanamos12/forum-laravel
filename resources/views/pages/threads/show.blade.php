@@ -1,7 +1,7 @@
 <x-guest-layout>
     <main class="grid grid-cols-4 gap-8 mt-8 wrapper">
 
-        <x-partials.sidenav />
+        <x-partials.sidenav :thread="$thread"/>
 
         <section class="flex flex-col col-span-3 gap-y-4">
             <x-alerts.main />

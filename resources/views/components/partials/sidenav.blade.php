@@ -8,16 +8,38 @@
                 {{ __('Start a new discussion') }}
             </a>
         </div>
+        @auth
+            @if(request()->routeIs('threads.show'))
+                <div class="pb-4 space-y-4">
 
-        <div class="pb-4 space-y-4">
-            {{-- Subscribe to thread button --}}
-            <x-buttons.secondary>
-                {{ __('Subscribe to Thread') }}
-            </x-buttons.secondary>
-            <p class="text-sm text-gray-500">
-                Subscribe to be notified whenever new discussions are created in the "Category One" forum.
-            </p>
-        </div>
+                    @can(App\Policies\ThreadPolicy::UNSUBSCRIBE, $thread)
+                    <x-links.primary href="{{ route('threads.unsubscribe', [$thread->category->slug(), $thread->slug()])}}">
+                        {{ __('Unsubscribe to Thread') }}
+                    </x-links.primary>
+                    <p class="text-sm text-gray-500">
+                        unsubscribe from this thread.
+                    </p>
+                    @elsecan(App\Policies\ThreadPolicy::SUBSCRIBE, $thread)
+                    <x-links.primary href="{{ route('threads.subscribe', [$thread->category->slug(), $thread->slug()])}}">
+                        {{ __('Subscribe to Thread') }}
+                    </x-links.primary>
+                    <p class="text-sm text-gray-500">
+                        Subscribe to this thread.
+                    </p>
+                    @endcan
+                    {{-- Subscribe to thread button --}}
+                    <!--<x-buttons.secondary>
+                        {{ __('Subscribe to Thread') }}
+                    </x-buttons.secondary>
+
+
+                    <p class="text-sm text-gray-500">
+                        Subscribe to be notified whenever new discussions are created in the "Category One" forum.
+                    </p>-->
+                </div>
+            @endif
+        @endauth
+        
     </div>
 
     {{-- Categories --}}
