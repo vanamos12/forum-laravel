@@ -6,6 +6,7 @@ use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\ReplyController;
 use App\Http\Controllers\Pages\ThreadController;
 use App\Http\Controllers\Dashboard\NotificationController;
+use App\Http\Controllers\Pages\ProfileController;
 use App\Http\Controllers\Pages\TagController as PagesTagController;
 
 /*
@@ -69,6 +70,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function(){
 
 //Route::get('discussion/create', [PageController::class, 'create'])->name('create');
 
+Route::get('user/{user:slug}', [ProfileController::class, 'show'])->name('profile');
 Route::get('dashboard/users', [PageController::class, 'users'])->name('users');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');

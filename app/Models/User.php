@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasTimestamps;
 use App\Traits\ModelHelpers;
 use Brick\Math\BigInteger;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -20,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use ModelHelpers;
+    use HasTimestamps;
 
     const DEFAULT = 1;
     const MODERATOR = 2;
@@ -96,5 +99,54 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function emailAddress():string{
         return $this->email;
+    }
+
+    public function threads(){
+        return $this->threadsRelation;
+    }
+
+    public function latestThreads(int $amount = 10){
+        return $this->threadsRelation()->latest()->limit($amount)->get();
+    }
+
+    public function threadsRelation():HasMany{
+        return $this->hasMany(Thread::class, 'author_id');
+    }
+
+    public function countThreads():int{
+        return $this->threadsRelation()->count();
+    }
+
+    public function deleteThreads(){
+        foreach($this->threads() as $thread){
+            $thread->delete();
+        }
+    }
+
+    public function latestThreads2()
+    {
+        return Thread::Where('author_id', $this->id())->orderBy('id', 'desc')->paginate(10);
+    }
+
+    public function replies(){
+        return $this->replyAble;
+    }
+
+    public function replyAble():HasMany{
+        return $this->hasMany(Reply::class, 'author_id');
+    }
+
+    public function latestReplies(int $amount = 10){
+        return $this->replyAble()->latest()->limit($amount)->get();
+    }
+
+    public function deleteReplies(){
+        foreach($this->replyAble()->get() as $reply){
+            $reply->delete();
+        }
+    }
+
+    public function countReplies() :int{
+        return $this->replyAble()->count();
     }
 }

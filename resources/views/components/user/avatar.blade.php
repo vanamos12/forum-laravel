@@ -1,9 +1,10 @@
-@if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-<button class="flex flex-col items-center text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+{{-- @if (Laravel\Jetstream\Jetstream::managesProfilePhotos()) --}}
+@isset($user)
+<a  href="{{ route('profile', $user) }}" class="flex flex-col items-center text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
     <img class="object-cover w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}" alt="{{ $user->name() }}" />
     {{-- <img class="object-cover w-16 h-16 rounded" src="{{ asset('img/avatars/person1.jpg') }}" alt="Person One" /> --}}
     <span class="text-xs text-gray-500">{{ $user->name() }}</span>
-</button>
+</a>
 
 @else
 <span class="inline-flex rounded-md">
@@ -11,4 +12,4 @@
         {{ Auth::user()->name }}
     </button>
 </span>
-@endif
+@endisset
