@@ -70,7 +70,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function(){
 
 //Route::get('discussion/create', [PageController::class, 'create'])->name('create');
 
-Route::get('user/{user:slug}', [ProfileController::class, 'show'])->name('profile');
+Route::get('user/{user:username}', [ProfileController::class, 'show'])->name('profile');
 Route::get('dashboard/users', [PageController::class, 'users'])->name('users');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');
