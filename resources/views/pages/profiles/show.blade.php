@@ -14,8 +14,31 @@
             </div>
 
             {{-- Follow Buttons --}}
-            <div class="">
-            </div>
+            @auth
+            @unless(auth()->user()->is($user))
+
+            @if(auth()->user()->isFollowing($user))
+                <div class="">
+                    <x-form action="{{ route('follow', $user)}}">
+                        <x-jet-button>
+                           {{ __('UnFollow') }} 
+                        </x-jet-button>
+                    </x-form>
+                </div> 
+            @else
+                <div class="">
+                    <x-form action="{{ route('follow', $user)}}">
+                        <x-jet-button>
+                           {{ __('Follow') }} 
+                        </x-jet-button>
+                    </x-form>
+                </div> 
+            @endif
+
+            @endunless 
+            @endauth
+            
+            
 
         </aside>
 
