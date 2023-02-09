@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\ReplyController;
+use App\Http\Controllers\Pages\FollowController;
 use App\Http\Controllers\Pages\ThreadController;
-use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Pages\ProfileController;
+use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Pages\TagController as PagesTagController;
 
 /*
@@ -70,7 +71,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function(){
 
 //Route::get('discussion/create', [PageController::class, 'create'])->name('create');
 
+// Profile
 Route::get('user/{user:username}', [ProfileController::class, 'show'])->name('profile');
+
+//Follows
+Route::get('user/{user:username}/follow', [FollowController::class, 'store'])->name('follow');
+
 Route::get('dashboard/users', [PageController::class, 'users'])->name('users');
 
 Route::get('/dashboard/categories/index', [PageController::class, 'categoriesIndex'])->name('categories.index');

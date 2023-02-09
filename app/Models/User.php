@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasFollows;
 use App\Traits\HasTimestamps;
 use App\Traits\ModelHelpers;
 use Brick\Math\BigInteger;
@@ -18,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
+    use HasFollows;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
@@ -83,6 +85,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function name():string{
         return (string) $this->name;
+    }
+
+    public function username():string{
+        return (string) $this->username;
     }
 
     public function isModerator():bool {
