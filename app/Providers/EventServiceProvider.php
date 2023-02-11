@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Events\ReplyWasCreated;
-use App\Listeners\sendNewReplyNotification;
+use App\Events\ThreadWasCreated;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\sendNewReplyNotification;
+use App\Listeners\sendNewThreadNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         ReplyWasCreated::class => [
             sendNewReplyNotification::class
-        ]
+        ],
+        ThreadWasCreated::class => [
+            sendNewThreadNotification::class,
+        ],
     ];
 
     /**

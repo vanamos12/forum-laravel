@@ -32,8 +32,17 @@ trait HasFollows{
             Session::flash('success', "you succesfully unfollowed $user->name");
             return $this->unfollow($user);
         }
-        
+
         Session::flash('success', "you succesfully followed $user->name");
         return $this->follow($user);
+    }
+
+    public function followers(){
+        return $this->followerRelation;
+    }
+
+    public function followerRelation():BelongsToMany{
+        return $this->belongsToMany(User::class, 'follows', 'following_user_id', 'user_id')
+                    ->withTimestamps();
     }
 }

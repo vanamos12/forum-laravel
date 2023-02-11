@@ -15,6 +15,7 @@
                     <tr>
                         <x-table.data>
                             <div>
+                                @if ($notification->data['type'] == 'new_reply')
                                 A new reply was add to
                                 <a href="{{ route('replies.replyAble', [
                                     $notification->data['replyable_id'],
@@ -22,6 +23,21 @@
                                 ]) }}" class="ml-2 font-bold text-blue-500">
                                 {{ $notification->data ['replyable_subject']}}
                                 </a>
+                                @endif
+
+                                @if ($notification->data['type'] == 'new_thread')
+                                A new thread was Added
+
+                                @php
+                                    $thread = App\Models\Thread::find($notification->data['thread']);
+                                @endphp
+                                <a href="{{ route('threads.show', [
+                                    $thread->category->slug(),
+                                    $thread->slug()
+                                ]) }}" class="ml-2 font-bold text-blue-500">
+                                {{ $thread->title() }}
+                                </a>
+                                @endif
                             </div>
                         </x-table.data>
                         <x-table.data>

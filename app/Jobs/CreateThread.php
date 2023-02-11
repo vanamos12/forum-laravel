@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Thread;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
+use App\Events\ThreadWasCreated;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Http\Requests\ThreadStoreRequest;
@@ -66,6 +67,8 @@ class CreateThread implements ShouldQueue
         $thread->authoredBy($this->author);
         $thread->syncTags($this->tags);
         $thread->save();
+
+        event(new ThreadWasCreated($thread));
 
         return $thread;
     }
