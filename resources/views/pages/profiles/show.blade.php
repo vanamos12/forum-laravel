@@ -38,7 +38,10 @@
             @endunless 
             @endauth
             
-            
+            <div class="flex flex-col pt-8 space-y-4">
+                <span class="px-2 py-1 text-sm text-white bg-indigo-500 rounded">Followers: {{ count($user->followers()) }}</span>
+                <span class="px-2 py-1 text-sm text-white bg-indigo-500 rounded">Following: {{ count($user->follows)}}</span>
+            </div>
 
         </aside>
 
