@@ -25,7 +25,7 @@ class Point extends Model
         return $this->morphTo();
     }
 
-    public function getCurrentPoints(Model $pointable):Model{
+    public function getCurrentPoints(Model $pointable){
         $currentPoints = Point::where('pointable_id', $pointable->id())
         ->where('pointable_type', $pointable->getMorphClass())
         ->orderBy('created_at', 'desc')
@@ -43,7 +43,7 @@ class Point extends Model
         $award->current_points = $this->getCurrentPoints($pointable) + $amount;
         $award->message = $message;
 
-        $pointable->awards()->save();
+        $pointable->awards()->save($award);
 
         return $award;
 
