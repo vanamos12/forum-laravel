@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasFollows;
+use App\Traits\HasPoints;
 use App\Traits\HasTimestamps;
 use App\Traits\ModelHelpers;
 use Brick\Math\BigInteger;
@@ -15,11 +16,12 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, PointAble
 {
     use HasApiTokens;
     use HasFactory;
     use HasFollows;
+    use HasPoints;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
