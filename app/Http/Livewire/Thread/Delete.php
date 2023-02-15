@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Thread;
 
+use App\Events\ThreadWasDeleted;
 use App\Models\Thread;
 use Livewire\Component;
 use App\Policies\ThreadPolicy;
@@ -22,10 +23,10 @@ class Delete extends Component
     
     public function deleteThread(){
         $this->authorize(ThreadPolicy::DELETE, $this->thread);
+        event(new ThreadWasDeleted($this->thread));
         $this->thread->delete();
 
         session()->flash('success', 'Thread Deleted!');
-
         return redirect()->route('threads.index');
     }
 

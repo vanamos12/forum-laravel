@@ -8,6 +8,13 @@
                 <span class="mt-2 text-sm text-gray-500">{{ $user->name() }}</span>
             </a>
 
+            
+            <div>
+                <h2 class="font-semibold">
+                    {{ $user->rank() }}
+                </h2>
+            </div>
+
             <div class="text-xs">
                 <h2 class="font-bold text-blue-500">Join Date:</h2>
                 <span class="text-gray-600">{{ $user->createdAt() }}</span>

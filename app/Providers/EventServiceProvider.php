@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Events\ReplyWasCreated;
 use App\Events\ThreadWasCreated;
+use App\Events\ThreadWasDeleted;
 use App\Listeners\AwardPointsForCreatingReply;
 use App\Listeners\AwardPointsForCreatingThread;
+use App\Listeners\sendDeleteThread;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\sendNewReplyNotification;
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
             sendNewThreadNotification::class,
             AwardPointsForCreatingThread::class,
         ],
+        ThreadWasDeleted::class =>[
+            sendDeleteThread::class,
+        ]
     ];
 
     /**
